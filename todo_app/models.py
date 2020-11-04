@@ -1,3 +1,24 @@
 from django.db import models
 
-# Create your models here.
+
+class Executor(models.Model):
+    name = models.CharField(max_length=32, null=True)
+
+    def __str__(self):
+        return self.name
+
+
+class Task(models.Model):
+    name = models.CharField(max_length=100, null=True)
+    executor = models.ForeignKey(Executor, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.name
+
+
+class Project(models.Model):
+    name = models.CharField(max_length=32, null=True)
+    tasks = models.ManyToManyField(Task)
+
+    def __str__(self):
+        return self.name
