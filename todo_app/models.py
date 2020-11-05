@@ -10,7 +10,7 @@ class Executor(models.Model):
 
 class Task(models.Model):
     name = models.CharField(max_length=100, null=True)
-    executor = models.ForeignKey(Executor, on_delete=models.CASCADE)
+    executor = models.ManyToManyField(Executor)
 
     def __str__(self):
         return self.name
@@ -18,7 +18,7 @@ class Task(models.Model):
 
 class Project(models.Model):
     name = models.CharField(max_length=32, null=True)
-    tasks = models.ForeignKey(Task, on_delete=models.CASCADE)
+    tasks = models.ManyToManyField(Task)
 
     def __str__(self):
         return self.name
