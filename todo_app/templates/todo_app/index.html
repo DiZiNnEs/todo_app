@@ -10,8 +10,10 @@
         <div class="jumbotron">
             <h1>Project:</h1>
             {% for project in project_list %}
-                <h3>{{ project.id }}) {{ project.name }}: has {{ number_of_tasks_in_project }} tasks</h3>
+                <h3>{{ project.name }}: has tasks</h3>
             {% endfor %}
+            <br>
+            <h1>We have {{ numbers_of_project }} projects</h1>
         </div>
     </div>
 {% endblock %}
