@@ -18,7 +18,7 @@ class Task(models.Model):
 
 class Project(models.Model):
     name = models.CharField(max_length=32, null=True)
-    tasks = models.ManyToManyField(Task)
+    tasks = models.ForeignKey(Task, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.name
