@@ -8,12 +8,10 @@
     {% include 'todo_app/navbar.html' %}
     <div class="container">
         <div class="jumbotron">
-            <h1>Project:</h1>
-            {% for project in project_list %}
-                <h3>{{ project.name }}: has tasks</h3>
+            <h1>Projects:</h1>
+            {% for project in projects %}
+                <h3>Project: {{ project.name }}, has {{ project.tasks.count }} tasks</h3>
             {% endfor %}
-            <br>
-            <h1>We have {{ numbers_of_project }} projects</h1>
         </div>
     </div>
 {% endblock %}

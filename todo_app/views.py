@@ -2,16 +2,16 @@ from django.shortcuts import render
 
 from django.core.handlers.wsgi import WSGIRequest
 
-from .models import Project
+from .models import (
+    Project,
+    Task,
+)
 
 
 def home(request: WSGIRequest) -> render:
-    project_list = Project.objects.all()
-    numbers_project = Project.objects.count()
-
+    projects = Project.objects.all()
     context = {
-        'project_list': project_list,
-        'numbers_of_project': numbers_project,
+        'projects': projects,
     }
 
     return render(request, 'todo_app/index.html', context)
