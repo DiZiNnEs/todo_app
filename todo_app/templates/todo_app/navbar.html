@@ -6,11 +6,11 @@
   <div class="collapse navbar-collapse" id="navbarText">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item">
-        <a class="nav-link" href="#">Features</a>
+        <a class="nav-link" href="{% url 'register' %}">Register</a>
       </li>
     </ul>
     <span class="navbar-text">
-      Hi, DiZiNnEs
+      Hi, {{ request.user }} | <a href="{% url 'logout' %}">logout</a>
     </span>
   </div>
 </nav>

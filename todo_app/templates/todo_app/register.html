@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block head %}
+    <title>Register page</title>
+{% endblock %}
+
+{% block body %}
+    <form action="" method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit">
+    </form>
+      <h2>Have a account ?<a href="{% url 'register' %}"> Sign in</a> now</h2>
+    {% for message in messages %}
+        <p id="messages">{{ message }}</p>
+    {% endfor %}
+{% endblock %}
