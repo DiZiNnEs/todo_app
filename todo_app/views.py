@@ -2,14 +2,11 @@ from django.shortcuts import render
 
 from django.core.handlers.wsgi import WSGIRequest
 
-from .models import (
-    Project,
-    Task,
-)
+from .models import Project
 
 
 def home(request: WSGIRequest) -> render:
-    projects = Project.objects.all()
+    projects = Project.objects.prefetch_related('tasks')
     context = {
         'projects': projects,
     }
