@@ -5,13 +5,13 @@
 {% endblock %}
 
 {% block body %}
-    <form action="" method="POST">
+    <form method="POST">
         {% csrf_token %}
         {{ form.as_p }}
         <input type="submit">
     </form>
     <h2>Not have a account ?<a href="{% url 'register' %}"> Register </a>now</h2>
-    {% for messages in messages %}
-        <p id="messages">{{ messages }}</p>
-    {% endfor %}
+{#    {% for message in messages %}#}
+{#        <p id="messages">{{ message }}</p>#}
+{#    {% endfor %}#}
 {% endblock %}

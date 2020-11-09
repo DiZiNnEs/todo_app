@@ -1,62 +1,65 @@
-from django.shortcuts import (
-    render,
-    redirect,
-)
+from django.shortcuts import render, redirect
 
-from django.contrib import messages
-
-from django.contrib.auth.forms import (
-    UserCreationForm,
-    AuthenticationForm,
-)
-from django.contrib.auth import (
-    authenticate,
-    login,
-    logout,
-)
-from django.contrib.auth.decorators import login_required
+from django.views.generic.base import View
 
 from django.core.handlers.wsgi import WSGIRequest
 
-from .models import Project
+from django.utils.decorators import method_decorator
+
+from django.contrib.auth import (
+    forms,
+    decorators,
+    authenticate,
+    login,
+    logout
+)
+
+from . import models
 
 
-@login_required(login_url='login')
-def home(request: WSGIRequest) -> render:
-    projects = Project.objects.prefetch_related('tasks')
-    context = {
-        'projects': projects,
-    }
+class HomeView(View):
+    projects = models.Project.objects.prefetch_related('tasks')
+    template_name = 'todo_app/index.html'
 
-    return render(request, 'todo_app/index.html', context)
+    @method_decorator(decorators.login_required(login_url='/login/'))
+    def get(self, request):
+        return render(request, self.template_name, {'projects': self.projects})
 
 
-def register_page(request: WSGIRequest) -> redirect or render:
-    if request.user.is_authenticated:
-        return redirect('home')
-    else:
-        form = UserCreationForm()
-        if request.method == 'POST':
-            form = UserCreationForm(request.POST)
+class RegisterView(View):
+    template_name = 'todo_app/register.html'
+    form = forms.UserCreationForm
+
+    def get(self, request: WSGIRequest) -> render:
+        try:
+            form = self.form()
+            return render(request, self.template_name, {'form': form})
+        except:
+            raise
+
+    def post(self, request: WSGIRequest) -> redirect or render:
+        try:
+            form = self.form(request.POST)
             if form.is_valid():
                 form.save()
-                return redirect('login')
-            else:
-                messages.info(request, 'Some forms are wrong')
-                print('form isn\'t valid')
-        else:
-            print('Method isn\'t POST')
-
-        context = {'form': form}
-        return render(request, 'todo_app/register.html', context)
+                return redirect('home')
+        except:
+            raise
 
 
-def login_page(request: WSGIRequest) -> redirect or render:
-    if request.user.is_authenticated:
-        return redirect('home')
-    else:
-        form = AuthenticationForm()
-        if request.method == 'POST':
+class LoginView(View):
+    template_name = 'todo_app/login.html'
+    form = forms.AuthenticationForm
+
+    def get(self, request: WSGIRequest) -> render:
+        try:
+            form = self.form()
+            return render(request, self.template_name, {'form': form})
+        except:
+            raise
+
+    def post(self, request: WSGIRequest) -> render or redirect:
+        try:
             username = request.POST.get('username')
             password = request.POST.get('password')
 
@@ -65,15 +68,11 @@ def login_page(request: WSGIRequest) -> redirect or render:
             if user_is_authenticate is not None:
                 login(request, user_is_authenticate)
                 return redirect('home')
-            else:
-                messages.info(request, 'Username OR password is incorrect')
-                print('user is none')
-        else:
-            print('request isn\'t POST method')
-
-        return render(request, 'todo_app/login.html', {'form': form})
+        except:
+            raise
 
 
-def user_logout(request: WSGIRequest) -> redirect:
-    logout(request)
-    return redirect('login')
+class LogoutView(View):
+    def get(self, request: WSGIRequest) -> redirect:
+        logout(request)
+        return redirect('login')
