@@ -6,6 +6,11 @@ from django.core.handlers.wsgi import WSGIRequest
 
 from django.utils.decorators import method_decorator
 
+from django.views.generic import (
+    TemplateView,
+
+)
+
 from django.contrib.auth import (
     forms,
     decorators,
@@ -17,13 +22,11 @@ from django.contrib.auth import (
 from . import models
 
 
-class HomeView(View):
-    projects = models.Project.objects.prefetch_related('tasks')
+class HomeView(TemplateView):
     template_name = 'todo_app/index.html'
 
-    @method_decorator(decorators.login_required(login_url='/login/'))
-    def get(self, request):
-        return render(request, self.template_name, {'projects': self.projects})
+    def get_context_data(self, **kwargs):
+        return {'projects': models.Project.objects.prefetch_related('tasks')}
 
 
 class RegisterView(View):
