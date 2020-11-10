@@ -10,7 +10,8 @@
         <div class="jumbotron">
             <h1>Projects:</h1>
             {% for project in projects %}
-                <h3>Project: {{ project.name }}, has {{ project.tasks.count }} tasks</h3>
+                <h3>Project: <a href="/project/{{ project.id }}">{{ project.name }}</a>, has {{ project.tasks.count }}
+                    tasks, id: {{ project.id }}</h3>
             {% endfor %}
         </div>
     </div>

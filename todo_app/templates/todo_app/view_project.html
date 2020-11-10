@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block head %}
+    <title>Detail project</title>
+{% endblock %}
+
+{% block body %}
+    {% include 'todo_app/navbar.html' %}
+    <div class="container">
+        <div class="jumbotron">
+            <h1>Project: {{ project.project.name }}</h1>
+            <hr>
+            <h2>Task: {{ project.name }}</h2>
+        </div>
+    </div>
+{% endblock %}

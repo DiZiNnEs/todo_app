@@ -22,8 +22,15 @@ from . import models
 class HomeView(TemplateView):
     template_name = 'todo_app/index.html'
 
-    def get_context_data(self, **kwargs) -> dict[str, models]:
+    def get_context_data(self, **kwargs) -> dict[str, models.Project]:
         return {'projects': models.Project.objects.prefetch_related('tasks')}
+
+
+class ProjectView(TemplateView):
+    template_name = 'todo_app/view_project.html'
+
+    def get_context_data(self, **kwargs):
+        return {'project': models.Task.objects.get(id=self.kwargs['pk'])}
 
 
 class RegisterView(FormView):
