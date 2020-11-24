@@ -12,6 +12,7 @@ urlpatterns = [
     path('logout/', views.LogoutView.as_view(), name='logout'),
 
     path('create-project', views.CreateProject.as_view(), name='create-project'),
+    path('create-taks', views.CreateTask.as_view(), name='create-task'),
     path('<pk>/update-project', views.UpdateProject.as_view(), name='update-project'),
     path('<pk>/delete-project', views.DeleteProject.as_view(), name='delete-project'),
 ]

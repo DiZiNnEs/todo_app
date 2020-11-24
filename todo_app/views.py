@@ -1,30 +1,18 @@
-from django.http import HttpResponse
-from django.shortcuts import render, redirect
-
-from django.core.handlers.wsgi import WSGIRequest
-
-from django.views.generic import (
-    TemplateView,
-    FormView,
-    View,
-    edit,
-)
-
 from django.contrib.auth import (
     forms,
     logout,
     views,
 )
+from django.core.handlers.wsgi import WSGIRequest
+from django.shortcuts import redirect
 from django.views.generic import (
     TemplateView,
     FormView,
     View,
 )
-
-from django.core.handlers.wsgi import WSGIRequest
-
-from django.shortcuts import redirect
-
+from django.views.generic import (
+    edit,
+)
 
 from . import models
 
@@ -69,6 +57,13 @@ class LogoutView(View):
 class CreateProject(edit.CreateView):
     model = models.Task
     template_name = 'todo_app/CRUD/create_project.html'
+    fields = '__all__'
+    success_url = '/'
+
+
+class CreateTask(edit.CreateView):
+    model = models.Project
+    template_name = 'todo_app/CRUD/create_task.html'
     fields = '__all__'
     success_url = '/'
 
