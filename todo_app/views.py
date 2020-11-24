@@ -44,7 +44,7 @@ class ProjectView(TemplateView):
 
 
 class RegisterView(FormView):
-    template_name = 'todo_app/register.html'
+    template_name = 'todo_app/authorization/register.html'
     form_class = forms.UserCreationForm
     success_url = '/login/'
 
@@ -54,7 +54,7 @@ class RegisterView(FormView):
 
 
 class LoginView(views.LoginView):
-    template_name = 'todo_app/login.html'
+    template_name = 'todo_app/authorization/login.html'
 
     def get_success_url(self) -> super:
         return super(LoginView, self).get_success_url()
