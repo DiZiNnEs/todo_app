@@ -7,15 +7,24 @@ from django.views.generic import (
     TemplateView,
     FormView,
     View,
-    edit
+    edit,
 )
 
 from django.contrib.auth import (
     forms,
-    authenticate,
-    login,
     logout,
+    views,
 )
+from django.views.generic import (
+    TemplateView,
+    FormView,
+    View,
+)
+
+from django.core.handlers.wsgi import WSGIRequest
+
+from django.shortcuts import redirect
+
 
 from . import models
 
@@ -44,26 +53,11 @@ class RegisterView(FormView):
         return super(RegisterView, self).form_valid(form)
 
 
-class LoginView(View):
+class LoginView(views.LoginView):
     template_name = 'todo_app/login.html'
-    form = forms.AuthenticationForm
 
-    def get(self, request: WSGIRequest) -> render:
-        form = self.form()
-        return render(request, self.template_name, {'form': form})
-
-    def post(self, request: WSGIRequest) -> render or redirect:
-        try:
-            username = request.POST.get('username')
-            password = request.POST.get('password')
-
-            user_is_authenticate = authenticate(request, username=username, password=password)
-
-            if user_is_authenticate is not None:
-                login(request, user_is_authenticate)
-                return redirect('home')
-        except ValueError:
-            return redirect('login') + HttpResponse('Login or password incorrect')
+    def get_success_url(self) -> super:
+        return super(LoginView, self).get_success_url()
 
 
 class LogoutView(View):
