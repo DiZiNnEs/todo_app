@@ -26,7 +26,7 @@ SECRET_KEY = 'p2i3=tr&y6*o&9!iy!8ajt1h&$=5c!fg3%!mu0bqhac7$g#u58'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [env('ALLOWED_HOST_1'), env('ALLOWED_HOST_2')]
 
 # Application definition
 
