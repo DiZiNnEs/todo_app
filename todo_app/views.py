@@ -6,7 +6,8 @@ from django.core.handlers.wsgi import WSGIRequest
 from django.views.generic import (
     TemplateView,
     FormView,
-    View
+    View,
+    edit
 )
 
 from django.contrib.auth import (
@@ -69,3 +70,24 @@ class LogoutView(View):
     def get(self, request: WSGIRequest) -> redirect:
         logout(request)
         return redirect('login')
+
+
+class CreateProject(edit.CreateView):
+    model = models.Task
+    template_name = 'todo_app/CRUD/create_project.html'
+    fields = '__all__'
+    success_url = '/'
+
+
+class UpdateProject(edit.UpdateView):
+    model = models.Task
+    template_name = 'todo_app/CRUD/update_project.html'
+    fields = '__all__'
+    success_url = '/'
+
+
+class DeleteProject(edit.DeleteView):
+    model = models.Task
+    template_name = 'todo_app/CRUD/delete_project.html'
+    fields = '__all__'
+    success_url = '/'

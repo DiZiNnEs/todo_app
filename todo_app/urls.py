@@ -10,4 +10,8 @@ urlpatterns = [
     path('register/', views.RegisterView.as_view(), name='register'),
     path('login/', views.LoginView.as_view(), name='login'),
     path('logout/', views.LogoutView.as_view(), name='logout'),
+
+    path('create-project', views.CreateProject.as_view(), name='create-project'),
+    path('<pk>/update-project', views.UpdateProject.as_view(), name='update-project'),
+    path('<pk>/delete-project', views.DeleteProject.as_view(), name='delete-project'),
 ]
