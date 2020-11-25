@@ -12,6 +12,7 @@ python-dotenv = "*"
 django-debug-toolbar = "*"
 gunicorn = "*"
 whitenoise = "*"
+djangorestframework = "*"
 
 [requires]
 python_version = "3.9"
