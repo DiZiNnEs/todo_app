@@ -10,14 +10,14 @@
         <div class="jumbotron">
             <h1>Projects:</h1>
             {% for project in projects %}
-                <h3>Project: <a href="/project/{{ project.id }}">{{ project.name }}</a>, has {{ project.tasks.count }}
+                <h3>Project: id: {{ project.id }}, <a href="/project/{{ project.id }}">{{ project.name }}</a>, has {{ project.tasks.count }}
                     tasks,
                     <button class="btn btn-primary"><a href="{{ project.id }}/update-project">Update</a></button>
                     <button class="btn btn-danger"><a href="{{ project.id }}/delete-project">Delete</a></button>
                 </h3>
             {% endfor %}
-            <button class="btn btn-warning"><a href="{% url 'create-project' %}">Create project</a></button>
-            <button class="btn btn-warning"><a href="{% url 'create-task' %}">Create task</a></button>
+            <button class="btn btn-warning"><a href="{% url 'create-project' %}">Create task</a></button>
+            <button class="btn btn-warning"><a href="{% url 'create-task' %}">Create project</a></button>
         </div>
     </div>
 {% endblock %}
