@@ -28,7 +28,7 @@ class ProjectView(TemplateView):
     template_name = 'todo_app/view_project.html'
 
     def get_context_data(self, **kwargs):
-        return {'project': models.Task.objects.get(id=self.kwargs['pk'])}
+        return {'project': models.Project.objects.get(id=kwargs['pk'])}
 
 
 class RegisterView(FormView):
@@ -69,14 +69,14 @@ class CreateTask(edit.CreateView):
 
 
 class UpdateProject(edit.UpdateView):
-    model = models.Task
+    model = models.Project
     template_name = 'todo_app/CRUD/update_project.html'
     fields = '__all__'
     success_url = '/'
 
 
 class DeleteProject(edit.DeleteView):
-    model = models.Task
+    model = models.Project
     template_name = 'todo_app/CRUD/delete_project.html'
     fields = '__all__'
     success_url = '/'
