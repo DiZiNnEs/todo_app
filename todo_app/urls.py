@@ -6,6 +6,7 @@ from . import views
 
 urlpatterns = [
     path('', login_required(views.HomeView.as_view(), login_url='/login/'), name='home'),
+
     path('project/<int:pk>/', login_required(views.ProjectView.as_view(), login_url='/login/'), name='project'),
     path('register/', views.RegisterView.as_view(), name='register'),
     path('login/', views.LoginView.as_view(), name='login'),
@@ -15,4 +16,6 @@ urlpatterns = [
     path('create-taks', views.CreateTask.as_view(), name='create-task'),
     path('<pk>/update-project', views.UpdateProject.as_view(), name='update-project'),
     path('<pk>/delete-project', views.DeleteProject.as_view(), name='delete-project'),
+
+    path('project-delete-api/<str:pk>', views.delete_project_using_api, name='delete-project-through-api')
 ]

@@ -3,16 +3,19 @@ from django.contrib.auth import (
     logout,
     views,
 )
-from django.core.handlers.wsgi import WSGIRequest
-from django.shortcuts import redirect
 from django.views.generic import (
     TemplateView,
     FormView,
     View,
 )
-from django.views.generic import (
-    edit,
-)
+
+from django.core.handlers.wsgi import WSGIRequest
+from django.shortcuts import redirect
+
+from django.views.generic import edit
+
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
 
 from . import models
 
@@ -80,3 +83,11 @@ class DeleteProject(edit.DeleteView):
     template_name = 'todo_app/CRUD/delete_project.html'
     fields = '__all__'
     success_url = '/'
+
+
+@api_view(['DELETE'])
+def delete_project_using_api(request, pk):
+    project = models.Project.objects.get(id=pk)
+    project.delete()
+
+    return Response('Project successfully deleted')
