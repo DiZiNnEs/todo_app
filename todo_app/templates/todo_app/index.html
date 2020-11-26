@@ -6,9 +6,6 @@
 
 {% block body %}
     {% load static %}
-
-
-
     {% include 'todo_app/navbar.html' %}
     <div class="container">
         <div class="jumbotron" id="events">
@@ -19,15 +16,12 @@
                     tasks,
                     <button class="btn btn-primary"><a href="{{ project.id }}/update-project">Update</a></button>
                     <button class="btn btn-danger"><a href="{{ project.id }}/delete-project">Delete</a></button>
-
+                    {% csrf_token %}
+                    <button class="btn btn-danger" id="delete_through_api" v-on:click="getUserAgreementOnDeleteProject({{ project.id }})"><a href=""></a>Delete through REST API</button>
                 </h3>
             {% endfor %}
-            {% verbatim %}
-            <h1>{{ outputHello }}</h1>
-            {% endverbatim %}
             <button class="btn btn-warning"><a href="{% url 'create-project' %}">Create task</a></button>
             <button class="btn btn-warning"><a href="{% url 'create-task' %}">Create project</a></button>
         </div>
     </div>
-
 {% endblock %}
