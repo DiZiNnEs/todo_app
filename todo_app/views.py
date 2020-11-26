@@ -3,6 +3,7 @@ from django.contrib.auth import (
     logout,
     views,
 )
+from django.http import JsonResponse
 from django.views.generic import (
     TemplateView,
     FormView,
@@ -13,10 +14,14 @@ from django.core.handlers.wsgi import WSGIRequest
 from django.shortcuts import redirect
 
 from django.views.generic import edit
+from rest_framework import status, permissions
 
 from rest_framework.decorators import api_view
-from rest_framework.response import Response
+from rest_framework.permissions import IsAuthenticated
 
+from .serializers import ProjectSerializer
+from rest_framework import generics
+from rest_framework import viewsets
 from . import models
 
 
@@ -85,9 +90,7 @@ class DeleteProject(edit.DeleteView):
     success_url = '/'
 
 
-@api_view(['DELETE'])
-def delete_project_using_api(request, pk):
-    project = models.Project.objects.get(id=pk)
-    project.delete()
-
-    return Response('Project successfully deleted')
+class DestroyProjectRestFrameWork(generics.DestroyAPIView):
+    # permission_classes = [permissions.AllowAny]
+    queryset = models.Project.objects.all()
+    serializer_class = ProjectSerializer
