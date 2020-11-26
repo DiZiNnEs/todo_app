@@ -17,5 +17,5 @@ urlpatterns = [
     path('<pk>/update-project', views.UpdateProject.as_view(), name='update-project'),
     path('<pk>/delete-project', views.DeleteProject.as_view(), name='delete-project'),
 
-    path('project-delete-api/<str:pk>', views.delete_project_using_api, name='delete-project-through-api')
+    path('project-delete/<int:pk>/', views.DestroyProjectRestFrameWork.as_view(), name='delete-project-through-api')
 ]
