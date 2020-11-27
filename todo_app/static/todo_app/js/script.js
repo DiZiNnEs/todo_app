@@ -7,16 +7,19 @@ const App = {
   methods: {
     getUserAgreementOnDeleteProject(id) {
       const questionToUserAboutDeleteProject = confirm('Are you want to delete project ?');
-      questionToUserAboutDeleteProject ? this.deleteProjectThroughApi(id) && location.reload() : console.log('Project not deleted');
+      questionToUserAboutDeleteProject ? this.deleteProjectThroughApi(id) : console.log('Project not deleted');
     },
     deleteProjectThroughApi(id) {
       axios
         .delete(`http://127.0.0.1:8000/project-delete/${id}/`, {
           headers: {'X-CSRFToken': getCookie('csrftoken')}
         })
-        .then(response => (this.resultAboutDelete = response))
+        .then(this.reloadPage())
         .catch(error => console.log(error));
     },
+    reloadPage() {
+      setTimeout(() => location.reload(), 500);
+    }
   },
 };
 
