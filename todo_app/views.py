@@ -91,6 +91,6 @@ class DeleteProject(edit.DeleteView):
 
 
 class DestroyProjectRestFrameWork(generics.DestroyAPIView):
-    # permission_classes = [permissions.AllowAny]
+    # permission_classes = [permissions.IsAuthenticated]
     queryset = models.Project.objects.all()
     serializer_class = ProjectSerializer

@@ -1,3 +1,5 @@
+import getCookie from "./cookie.js";
+
 const App = {
   data() {
     return {};
@@ -10,7 +12,7 @@ const App = {
     deleteProjectThroughApi(id) {
       axios
         .delete(`http://127.0.0.1:8000/project-delete/${id}/`, {
-          headers: {'X-CSRFToken': '0hekCQGnD4qwDkXxrQdMRCNQRyyoPW0fhxoGuttRaf1BQEbZBNEWQzPhjWEMKVLe'}
+          headers: {'X-CSRFToken': getCookie('csrftoken')}
         })
         .then(response => (this.resultAboutDelete = response))
         .catch(error => console.log(error));
@@ -19,3 +21,5 @@ const App = {
 };
 
 Vue.createApp(App).mount('#events');
+
+
