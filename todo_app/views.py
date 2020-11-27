@@ -3,7 +3,7 @@ from django.contrib.auth import (
     logout,
     views,
 )
-from django.http import JsonResponse
+
 from django.views.generic import (
     TemplateView,
     FormView,
@@ -14,15 +14,11 @@ from django.core.handlers.wsgi import WSGIRequest
 from django.shortcuts import redirect
 
 from django.views.generic import edit
-from rest_framework import status, permissions
-
-from rest_framework.decorators import api_view
-from rest_framework.permissions import IsAuthenticated
+from rest_framework import permissions
 
 from .serializers import ProjectSerializer
 from rest_framework import generics
-from rest_framework import viewsets
-from . import models
+from todo_app import models
 
 
 class HomeView(TemplateView):
@@ -91,6 +87,6 @@ class DeleteProject(edit.DeleteView):
 
 
 class DestroyProjectRestFrameWork(generics.DestroyAPIView):
-    # permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [permissions.IsAuthenticated]
     queryset = models.Project.objects.all()
     serializer_class = ProjectSerializer
